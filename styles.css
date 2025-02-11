@@ -1,0 +1,30 @@
+body, p{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:brown;
+    font-size: larger;
+    background-color: rgba(127, 255, 212, 0.378);
+}
+
+input, button {
+    margin-bottom: 15px;
+}
+div {
+    display: flex;
+    flex-direction: column;
+    color: rgb(106, 165, 228);
+    background-color: bisque;
+    padding: 2%;
+}
+#canvasDiv{
+    background: rgb(202, 182, 157);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: 100vh; */
+    gap: 200%;
+}
+.chart{
+    padding: 2rem
+}
