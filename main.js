@@ -4,6 +4,7 @@ const btnUserClick = document.getElementById('add');
     const groceryInput = document.querySelector('input');
     const newGroceryItem = document.querySelector('#newGroceryItem');
     let listArr = [];
+    let position = [];
 
 
 
