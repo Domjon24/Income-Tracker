@@ -23,19 +23,19 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
 
 //Clear Fields
 function clearFields() {
-    document.querySelector("#groceryItem").value = "";
-    document.querySelector("#lastName").value = "";
-    document.querySelector("#quantity").value = "";
+    document.querySelector("#paycheckDate").value = "";
+    document.querySelector("#netPay").value = "";
+    document.querySelector("#hoursWorked").value = "";
 }
 //add data
 document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
     e.preventDefault();
 
-    const groceryItem = document.querySelector("#groceryItem").value;
-    const lastName = document.querySelector("#lastName").value;
-    const quantity = document.querySelector("#quantity").value;
+    const paycheckDate = document.querySelector("#paycheckDate").value;
+    const netPay = document.querySelector("#netPay").value;
+    const hoursWorked = document.querySelector("#hoursWorked").value;
 
-    if (groceryItem == "" || lastName == "" || quantity == "") {
+    if (paycheckDate == "" || netPay == "" || hoursWorked == "") {
         showAlert("Please fill in all fields", "danger")
     }
     else {
@@ -44,9 +44,9 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             const row = document.createElement("tr");
 
             row.innerHTML = `
-            <td>${groceryItem}</td>
-            <td>${lastName}</td>
-            <td>${quantity}</td>
+            <td>${paycheckDate}</td>
+            <td>${netPay}</td>
+            <td>${hoursWorked}</td>
             <td>
             <a href="#" class="btn btn-warning btn-sm edit">Edit</a>
             <a href="#" class="btn btn-danger btn-sm delete">Delete</a>`;
@@ -56,9 +56,9 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             showAlert("Item Added", "success");
         }
         else {
-            selectedRow.children[0].textContent = groceryItem;
-            selectedRow.children[1].textContent = lastName;
-            selectedRow.children[2].textContent = quantity;
+            selectedRow.children[0].textContent = paycheckDate;
+            selectedRow.children[1].textContent = netPay;
+            selectedRow.children[2].textContent = hoursWorked;
             selectedRow = null;
             showAlert("Item Edited", "info")
         }
@@ -71,8 +71,8 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
     if (target.classList.contains("edit")) {
         selectedRow = target.parentElement.parentElement;
 
-        document.querySelector("#groceryItem").value = selectedRow.children[0].textContent;
-        document.querySelector("#lastName").value = selectedRow.children[1].textContent;
-        document.querySelector("#quantity").value = selectedRow.children[2].textContent;
+        document.querySelector("#paycheckDate").value = selectedRow.children[0].textContent;
+        document.querySelector("#netPay").value = selectedRow.children[1].textContent;
+        document.querySelector("#hoursWorked").value = selectedRow.children[2].textContent;
     }
 })
