@@ -13,7 +13,7 @@
 <!-- // https://www.chartjs.org/docs/latest/charts/doughnut.html -->
 
 
-<body>
+<body onload="updateMyChart()">
     <div class="container mt-5">
         <div class="text-center">
             <h1 class="display-5 mb-5"><strong>Grocery List</strong></h1>
@@ -34,7 +34,7 @@
 
             <div class="col-10 mb-3">
                 <label for="hoursWorked">Hours Worked</label>
-                <input class="form-control" id="hoursWorked" type="number" placeholder="20">
+                <input class="form-control" id="hoursWorked" type="number">
             </div>
             <div class="col-10">
                 <input class="btn btn-success add-btn"  type="submit" value="Submit">
@@ -73,9 +73,9 @@
 
 <div>
     <canvas id="chart1"></canvas>
-    <input type="number" id="pushValue" value="12" class="form-control mb-3 w-75">
+    <!-- <input type="number" id="pushValue" value="12" class="form-control mb-3 w-75">
     <input type="text" id="pushLabel" placeholder="Category" class="form-control mb-3 w-75">
-    <button id="push" class="btn btn-dark btn-sm w-75">Save</button>
+    <button id="push" class="btn btn-dark btn-sm w-75">Save</button> -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

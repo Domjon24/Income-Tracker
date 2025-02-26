@@ -17,6 +17,7 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
     target = e.target;
     if (target.classList.contains("delete")){
         target.parentElement.parentElement.remove();
+        updateMyChart();
         showAlert("Student Data Deleted", "danger")
     }
 })
@@ -35,6 +36,7 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
     const netPay = document.querySelector("#netPay").value;
     const hoursWorked = document.querySelector("#hoursWorked").value;
 
+
     if (paycheckDate == "" || netPay == "" || hoursWorked == "") {
         showAlert("Please fill in all fields", "danger")
     }
@@ -42,6 +44,7 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
         if (selectedRow == null) {
             const list = document.querySelector("#groceryList");
             const row = document.createElement("tr");
+            const yAxisDate = myChart1.data.datasets[0].data;
 
             row.innerHTML = `
             <td>${paycheckDate}</td>
@@ -53,16 +56,25 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
 
             list.appendChild(row);
             selectedRow = null;
+            console.log(yAxisDate);
+            updateMyChart()
+            
+            // myChart1.update()
             showAlert("Item Added", "success");
+            
         }
         else {
             selectedRow.children[0].textContent = paycheckDate;
             selectedRow.children[1].textContent = netPay;
             selectedRow.children[2].textContent = hoursWorked;
             selectedRow = null;
+            // myChart1.update()
+            updateMyChart()
             showAlert("Item Edited", "info")
+            
         }
         clearFields();
+        updateMyChart()
     }
 })
 
@@ -72,7 +84,13 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
         selectedRow = target.parentElement.parentElement;
 
         document.querySelector("#paycheckDate").value = selectedRow.children[0].textContent;
+        // selectedRow.children[0].textContent = myChart1.data.labels
+
         document.querySelector("#netPay").value = selectedRow.children[1].textContent;
+        // myChart1.data.datasets[0].data = selectedRow.children[1].textContent
+
         document.querySelector("#hoursWorked").value = selectedRow.children[2].textContent;
+        
+        // myChart1.update()
     }
 })
