@@ -5,9 +5,9 @@ const myChart1 = new Chart(ctx, {
   data: {
     labels: [],
     datasets: [{
-      label: '# of Votes',
+      label: 'Paycheck Total',
       data: [],
-      borderWidth: 1,
+      borderWidth: 2,
     
     }]
   },
@@ -56,7 +56,8 @@ function updateMyChart() {
 
     }
   }
-  console.log(object.data.datasets[0].data + "  " + object.data.labels + "function done")
+  // console.log(object.data.datasets[0].data + "  " + object.data.labels + "Chart Updated")
+  console.log(`Chart Updated.\nPay: ${object.data.datasets[0].data} \nDate: ${object.data.labels}`)
   myChart1.update()
   return object;
 }

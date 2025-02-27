@@ -74,7 +74,6 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             
         }
         clearFields();
-        updateMyChart()
     }
 })
 
@@ -90,7 +89,6 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
         // myChart1.data.datasets[0].data = selectedRow.children[1].textContent
 
         document.querySelector("#hoursWorked").value = selectedRow.children[2].textContent;
-        
-        // myChart1.update()
+
     }
 })
