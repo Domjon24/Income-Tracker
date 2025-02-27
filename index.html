@@ -17,14 +17,16 @@
 
 
 <body onload="updateMyChart()">
-
-    <input type="file" id="pdf-upload" accept=".pdf" multiple>
-    <div id="pdf-content"></div>
+    <form id="pdfForm">
+        <input type="file" id="pdf-upload" accept=".pdf" multiple>
+        <button id="uploadPdfBtn" type="submit">Submit</button>
+    </form>
+    <div id="pdf-content">pdf area</div>
     <div id = "canvas_container">
-        <canvas id = "pdf_renderer"> </canvas>
-     </div>
+        <canvas id = "pdf_renderer"> 
+            </canvas>
+    </div>
      
-
 
     <div class="container mt-5">
         <div class="text-center">
