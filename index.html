@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>CRUD Practice</title>
     <!-- <link rel="stylesheet" href="styles.css"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+
 </head>
 
 
@@ -14,6 +17,15 @@
 
 
 <body onload="updateMyChart()">
+
+    <input type="file" id="pdf-upload" accept=".pdf">
+    <div id="pdf-content"></div>
+    <div id = "canvas_container">
+        <canvas id = "pdf_renderer"> </canvas>
+     </div>
+     
+
+
     <div class="container mt-5">
         <div class="text-center">
             <h1 class="display-5 mb-5"><strong>Grocery List</strong></h1>
@@ -84,5 +96,6 @@
 
 <script src="mainBS.js"> </script>
 <script src="chart1.js"> </script>
+<script src="pdfPractice.js"> </script>
 
 </html>
