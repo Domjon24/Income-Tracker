@@ -59,19 +59,16 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             console.log(yAxisDate);
             updateMyChart()
             
-            // myChart1.update()
-            showAlert("Item Added", "success");
-            
+            showAlert("Item Added", "success");   
         }
         else {
             selectedRow.children[0].textContent = paycheckDate;
             selectedRow.children[1].textContent = netPay;
             selectedRow.children[2].textContent = hoursWorked;
             selectedRow = null;
-            // myChart1.update()
+            
             updateMyChart()
             showAlert("Item Edited", "info")
-            
         }
         clearFields();
     }
