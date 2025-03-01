@@ -1,36 +1,25 @@
 const input = document.getElementById('pdf-upload');
 const output = document.getElementById('pdf-content');
 
-//function will push each pdf into array. this array will be push int global variable array which will be pushed into table
-//click button to run loop. if array size < pdfInputLength, run pdfparse function. else, return Big arr
-        //if(fileinputlength < arrayLength) run parse function,else run function that pushes table data into table.
-//parse function needs to get data into string, push into new array, and send to array to big array
-        //run pdfparse function & return pdfTextArray.
-//parse function needs to be nested in conditional that checks file input size against new array size
-//
-
 let fileCount = 0;
 let allPDFText = [];
-function findValues (payIndex, dateIndex, hrs, text){
+function findValues (payIndex, dateIndex, hrs, text){ //finds values & pushes into allPDFText arr
         let a = payIndex-8;
         let b = dateIndex + 19;
         let c = dateIndex + 30;
         let d = hrs + 10
         let e = hrs + 23
-        console.log(text.slice(a, payIndex).trim())
-        console.log(text.slice(b, c).trim())
-        console.log(text.slice(d, e).trim())
+        // console.log(text.slice(a, payIndex).trim())
+        // console.log(text.slice(b, c).trim())
+        // console.log(text.slice(d, e).trim())
         allPDFText.push(text.slice(a, payIndex).trim())
         allPDFText.push(text.slice(b, c).trim())
         allPDFText.push(text.slice(d, e).trim())
 
 }
 
-function validatePDF () {
 
-}
-
-function parsePDF(){
+async function parsePDF(){
 input.addEventListener('change', async () => {
 
     const files = input.files;
@@ -60,8 +49,7 @@ input.addEventListener('change', async () => {
                                 showAlert2(`${document.getElementById('pdf-upload').value} is invalid, try again`, "danger")
                                 return;  //conditional validates pdf & returns filepath that didn't upload. else, it runs
                         }
-                        
-                        console.log("this text :" + thisText)
+
                         thisIndex = thisText.search('Earnings Tax');
                         dateIndex = thisText.search('XXX');
                         hours = thisText.search('RS WORKED');
@@ -70,7 +58,7 @@ input.addEventListener('change', async () => {
                     }
                         allText.push(thisText);//pushes all pdf text into array within big arr
                         // output.textContent = allText.join(''); //displays all pdftext on page
-                        // console.log(allPDFText)
+                        console.log(allPDFText)
                     
                 } catch (error) {
                         showAlert(`${error.message}`, "danger")
@@ -83,20 +71,44 @@ input.addEventListener('change', async () => {
 })
 }
 
-
 parsePDF()
 
 const myForm = document.getElementById('pdfForm');
-const inpFile = document.getElementById('pdf-upload');
-    myForm.addEventListener('submit', e => { //submit button function
+
+    myForm.addEventListener('submit', async e => { //submit button function
         e.preventDefault();
                 
                 let fileCount = 0;
                 const files = input.files.length;
                 fileCount += files
-                console.log(`submit button pressed. Filename is: ${inpFile.value} current file count is ${fileCount}`)
-                console.log("pdf array " + allPDFText)
+                console.log(`submit button pressed. Filename is: ${input.value} current file count is ${fileCount}`)
+                console.log("pdf array is " + allPDFText)
 
-    });
+                        const paycheckDate = allPDFText[1];
+                        const netPay = allPDFText[0];
+                        const hoursWorked = allPDFText[2];
 
-   
+                       
+                            if (selectedRow == null) {
+                                const list = document.querySelector("#groceryList");
+                                const row = document.createElement("tr");
+                                const yAxisDate = myChart1.data.datasets[0].data;
+                    
+                                row.innerHTML = `
+                                <td>${paycheckDate}</td>
+                                <td>${netPay}</td>
+                                <td>${hoursWorked}</td>
+                                <td>
+                                <a href="#" class="btn btn-warning btn-sm edit">Edit</a>
+                                <a href="#" class="btn btn-danger btn-sm delete">Delete</a>`;
+                    
+                                list.appendChild(row);
+                                selectedRow = null;
+                                console.log(yAxisDate);
+                                updateMyChart()
+                                
+                                showAlert("Item Added", "success");   
+                            }
+                    })
+    
+

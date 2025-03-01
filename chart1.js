@@ -47,6 +47,7 @@ function updateMyChart() {
   for (let i = 0; i < thisRow.length; i++) {
 
     const cells = thisRow[i].getElementsByTagName('td');
+    
     if (cells.length > 0) {
       let thisDate = cells[0].textContent; 
       let thisNetPay = cells[1].textContent; 

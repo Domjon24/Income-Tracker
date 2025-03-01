@@ -1,6 +1,6 @@
 var selectedRow = null;
 
-function showAlert(message, className) {
+function showAlert(message, className) { // Alert #1
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
 
@@ -11,7 +11,7 @@ function showAlert(message, className) {
 
     setTimeout(() => document.querySelector(".alert").remove(), 4500);
 }
-function showAlert2(message, className) {
+function showAlert2(message, className) { // Alert #2
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
 
@@ -38,7 +38,9 @@ function clearFields() {
     document.querySelector("#netPay").value = "";
     document.querySelector("#hoursWorked").value = "";
 }
-//add data
+
+
+//add data from form
 document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
     e.preventDefault();
 
@@ -84,16 +86,14 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
     }
 })
 
-document.querySelector("#groceryList").addEventListener("click", (e) => {
+document.querySelector("#groceryList").addEventListener("click", (e) => { //edit 
     target = e.target;
     if (target.classList.contains("edit")) {
         selectedRow = target.parentElement.parentElement;
 
         document.querySelector("#paycheckDate").value = selectedRow.children[0].textContent;
-        // selectedRow.children[0].textContent = myChart1.data.labels
 
         document.querySelector("#netPay").value = selectedRow.children[1].textContent;
-        // myChart1.data.datasets[0].data = selectedRow.children[1].textContent
 
         document.querySelector("#hoursWorked").value = selectedRow.children[2].textContent;
 
