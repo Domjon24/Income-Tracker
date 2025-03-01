@@ -9,65 +9,83 @@ const output = document.getElementById('pdf-content');
 //parse function needs to be nested in conditional that checks file input size against new array size
 //
 
-let fileAMount = 0;
+let fileCount = 0;
+let allPDFText = [];
+function findValues (payIndex, dateIndex, hrs, text){
+        let a = payIndex-8;
+        let b = dateIndex + 19;
+        let c = dateIndex + 30;
+        let d = hrs + 10
+        let e = hrs + 23
+        console.log(text.slice(a, payIndex))
+        console.log(text.slice(b, c))
+        console.log(text.slice(d, e))
+}
 
-const fileInput = document.getElementById('pdf-upload');//display amount of files uploaded
+function parsePDF(){
+input.addEventListener('change', async () => {
 
-  fileInput.addEventListener('change', () => {
-    const files = fileInput.files.length;
-    fileAMount += files
-    console.log(`file amount is ${fileAMount}`)
-  });
+    const files = input.files;
+    let allText = [];
 
+    for (let file of files){
+        if (file) {
+            const fileReader = new FileReader();
 
-// input.addEventListener('change', async () => {
-//     // const file = input.files[0];
-//     const files = input.files;
-//     let allText = [];
-
-//     for (let file of files){
-//         if (file) {
-//             const fileReader = new FileReader();
-
-//             fileReader.onload = async function() {
-//                 try {
-//                     const typedArray = new Uint8Array(this.result);
-//                     const pdf = await pdfjsLib.getDocument(typedArray).promise;
-//                     const numPages = pdf.numPages;
+            fileReader.onload = async function() {
+                try {
+                    const typedArray = new Uint8Array(this.result);
+                    const pdf = await pdfjsLib.getDocument(typedArray).promise;
+                    const numPages = pdf.numPages;
                     
-//                     let thisText = "";
+                    let thisText = "";
 
-//                     for (let i = 1; i <= numPages; i++) {
+                    for (let i = 1; i <= numPages; i++) {
                         
-//                         const page = await pdf.getPage(i);
-//                         const textContent = await page.getTextContent();
-//                         const pageText = textContent.items.map(item => item.str).join(" ");
-//                         thisText += pageText.toString();
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
+                        const pageText = textContent.items.map(item => item.str).join(" ");
+                        thisText += pageText.toString();
 
-//                         thisIndex = thisText.search('DOMINIQUE');
-//                         // console.log(pageText)
-//                         console.log("index " + thisIndex)
-//                     }
-//                         allText.push(thisText);
-//                         // output.textContent = allText.join('');
-//                         console.log(allText)
-//                         console.log(thisText)
+                        thisIndex = thisText.search('Earnings Tax');
+                        dateIndex = thisText.search('XXX');
+                        hours = thisText.search('RS WORKED');
+
+
+                        findValues(thisIndex, dateIndex, hours, thisText)
+                    }
+
                     
-//                 } catch (error) {
-//                     output.textContent = "Error parsing PDF: " + error.message;
-//                 }
-//             };
-//               fileReader.readAsArrayBuffer(file);
-//         }
-//     }
-// })
+                        allText.push(thisText);//pushes all pdf text into array within big arr
+                        output.textContent = allText.join(''); //displays all pdftext on page
+                        // console.log(allPDFText)
+                    
+                } catch (error) {
+                    output.textContent = "Error parsing PDF: " + error.message;
+                }
+                
+            };
+              fileReader.readAsArrayBuffer(file);
+              
+        }
+    }
+                       
+})
+}
 
+
+parsePDF()
 const myForm = document.getElementById('pdfForm');
 const inpFile = document.getElementById('pdf-upload');
-
-    myForm.addEventListener('submit', e => {
+    myForm.addEventListener('submit', e => { //submit button function
         e.preventDefault();
+                
+                let fileCount = 0;
+                const files = input.files.length;
+                fileCount += files
+                console.log(`submit button pressed. Filename is: ${inpFile.value} current file count is ${fileCount}`)
+                console.log("pdf array count is now " + allPDFText.length)
 
-            console.log(inpFile)
     });
-    
+
+   
