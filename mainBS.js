@@ -9,7 +9,17 @@ function showAlert(message, className) {
     const main = document.querySelector(".main");
     container.insertBefore(div, main);
 
-    setTimeout(() => document.querySelector(".alert").remove(), 3500);
+    setTimeout(() => document.querySelector(".alert").remove(), 4500);
+}
+function showAlert2(message, className) {
+    const div = document.createElement("div");
+    div.className = `alert alert-${className}`;
+
+    div.appendChild(document.createTextNode(message));
+    const container = document.querySelector(".container");
+    const main = document.querySelector(".main");
+    container.insertBefore(div, main);
+    setTimeout(() => document.querySelector(".alert").remove(), 6500);
 }
 
 //Delete button
