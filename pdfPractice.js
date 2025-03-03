@@ -65,15 +65,16 @@ async function parsePDF(){
                         output.textContent = "Error parsing PDF: " + error.message;
                     }
                 };
-                fileReader.readAsArrayBuffer(file);   
+                fileReader.readAsArrayBuffer(file);  
             //goes with file conditional }
-        }                   
+        }             
+        return;      
     })
 }
 
 /*Calling main PDF Function*/     parsePDF()
 
-myForm.addEventListener('submit', async e => { //submit button function
+myForm.addEventListener('submit', e => { //submit button function
     e.preventDefault();
         if (allPDFText.length < 1){ //checks if file has been selected
             showAlert(`Please select a valid file`, "danger")
@@ -84,12 +85,14 @@ myForm.addEventListener('submit', async e => { //submit button function
         const files = input.files.length;
         fileCount += files
             console.log(`submit button pressed. Filename is: ${input.value} current file count is ${fileCount}`)
-            console.log("pdf array is " + allPDFText)
-            // for (let i = 0; i <= allPDFText.length; i++) {
-                const paycheckDate = allPDFText[0][1];
-                const netPay = allPDFText[0][0];
-                const hoursWorked = allPDFText[0][2];
+            console.log(`pdf array is ${allPDFText} length is ${allPDFText.length}`)
+            for (let i = 0; i < allPDFText.length; i++) {
 
+                let paycheckDate = allPDFText[i][1];
+                let netPay = allPDFText[i][0];
+                let hoursWorked = allPDFText[i][2];
+                console.log("index is " + i)
+                console.log("file check " + allPDFText[i])
                     if (selectedRow == null) {
                         const list = document.querySelector("#groceryList");
                         const row = document.createElement("tr");
@@ -107,7 +110,8 @@ myForm.addEventListener('submit', async e => { //submit button function
                         updateMyChart()
                         showAlert("Item Added", "success");   
                     }
-            // }
+            
+        }
 })
     
 
