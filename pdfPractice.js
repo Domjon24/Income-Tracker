@@ -3,9 +3,10 @@ const output = document.getElementById('pdf-content');
 const myForm = document.getElementById('pdfForm');
 let fileCount = 0;
 let allPDFText = [];
+let fileName = [];
 
 
-function convertDateFormat (date){ //converts into yyyy-mm-dd so form can accept it
+function convertDateFormat (date){ //converts date to yyyy-mm-dd so form can accept it
     let year = date.slice(6,11) + "-";
     let month = date.slice(0,2) + "-";
     let day = date.slice(3,5);
@@ -30,23 +31,32 @@ function resetInputValues(){
     allPDFText.length = 0
 }
 
+function previewFileValues(index){
+    output.textContent = ' '
+    console.log('File name:', index.name)
+    fileName.push(index.name)
+    output.textContent += fileName + '\n';
+}
 async function parsePDF(){
     input.addEventListener('change', async () => {
         allPDFText.length = 0 //resets selected file if it's changed before submitting to prevent duplicates
+        fileName.length = 0;
         const files = input.files;
+
         for (let file of files){ // loops through all input files and parses text
 
+                // console.log('File name:', file.name);
+                previewFileValues(file)
                 const fileReader = new FileReader(); //new obj constructor
-
                 fileReader.onload = async function() {
                     try {
+
                         const typedArray = new Uint8Array(this.result);
                         const pdf = await pdfjsLib.getDocument(typedArray).promise;
                         // const numPages = pdf.numPages; //keeping this handy for scaling reasons
                         const page = await pdf.getPage(1);
                         let thisText = "";  //each file gets all their text put into here before going into allPDFText Arr
                         const textContent = await page.getTextContent();
-                        
                         thisText += textContent.items.map(item => item.str).join(" ").toString();
 
                             if (thisText.search('GLENLAKE') < 1 || thisText.search('BFTAX') < 1 || thisText.search('Rate Miles') < 1) {
@@ -60,8 +70,10 @@ async function parsePDF(){
 
                                     findValues(thisIndex, dateIndex, hours, thisText)
                                 
-                                    output.textContent = allPDFText.join(''); //displays pdf values on page
+                                    // output.textContent = allPDFText.join(''); //displays pdf values on page
+                                    
                                     console.log(allPDFText)
+                                    
                                 
                     } catch (error) {
                         showAlert(`${error.message}`, "danger")
@@ -69,7 +81,7 @@ async function parsePDF(){
                     }
                 };
                 fileReader.readAsArrayBuffer(file);  
-        }             
+        } 
         return;      
     })
 }
@@ -121,5 +133,3 @@ myForm.addEventListener('submit', e => { //submit button function
         }
         resetInputValues()
 })
-    
-
