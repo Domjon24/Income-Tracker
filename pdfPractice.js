@@ -4,18 +4,26 @@ const myForm = document.getElementById('pdfForm');
 let fileCount = 0;
 let allPDFText = [];
 
-function findValues (payStartingIndex, dateStartingIndex, hoursStartingIndex, parsedPDFText){ //finds values & pushes into sub-array within allPDFText arr
+
+function convertDateFormat (date){ //yyyy-mm-dd
+    let year = date.slice(6,11) + "-";
+    let month = date.slice(0,2) + "-";
+    let day = date.slice(3,5);
+    return year + month + day;
+}
+
+function findValues (payStartingIndex, dateStartingIndex, hoursStartingIndex, parsedPDFText){ //finds values, formats & pushes into sub-array within allPDFText arr
         let values = [];
         let a = payStartingIndex-8;
         let b = dateStartingIndex + 19;
         let c = dateStartingIndex + 30;
         let d = hoursStartingIndex + 10
         let e = hoursStartingIndex + 23
-        values.push(parsedPDFText.slice(a, payStartingIndex).trim());
-        values.push(parsedPDFText.slice(b, c).trim());
-        values.push(parsedPDFText.slice(d, e).trim());
+        values.push(Math.round(parsedPDFText.slice(a, payStartingIndex).trim())); //net pay
+        values.push(convertDateFormat(parsedPDFText.slice(b, c).trim()));//date
+        values.push(Math.round(parsedPDFText.slice(d, e).trim())); //hours
         allPDFText.push(values)
-            //finds pay, hours & date values. removes whitespace & pushes into addPDFText array
+            //finds all 3 values, puts in correct format & pushes into addPDFText array
 }
 
 
@@ -23,28 +31,26 @@ async function parsePDF(){
     input.addEventListener('change', async () => {
         const files = input.files;
 
-        for (let file of files){
-            if (file) {
-                const fileReader = new FileReader();
+        for (let file of files){ // loops through all input files and parses text
+            // if (file) { //idk why this is in here
+                const fileReader = new FileReader(); //new obj constructor
 
                 fileReader.onload = async function() {
                     try {
                         const typedArray = new Uint8Array(this.result);
                         const pdf = await pdfjsLib.getDocument(typedArray).promise;
-                        const numPages = pdf.numPages;
-                        console.log("length is: " + numPages)
+                        // const numPages = pdf.numPages; //keeping this handy for scaling reasons
+                        const page = await pdf.getPage(1);
+                        let thisText = "";  //each file gets all their text put into here before going into allPDFText Arrconst page = await pdf.getPage(1);
+                        const textContent = await page.getTextContent();
                         
-                        let thisText = "";  //each file gets all their text put into here before going into allPDFText Arr
-                            
-                            const page = await pdf.getPage(1);
-                            const textContent = await page.getTextContent();
-                            thisText += textContent.items.map(item => item.str).join(" ").toString();
+                        thisText += textContent.items.map(item => item.str).join(" ").toString();
 
                             if (thisText.search('GLENLAKE') < 1 || thisText.search('BFTAX') < 1 || thisText.search('Rate Miles') < 1) {
                                 showAlert2(`${document.getElementById('pdf-upload').value} is invalid, try again`, "danger")
                                 return false;  //conditional validates pdf & returns filepath that didn't upload. else, it runs
                             }
-                                else{
+                               
                                     thisIndex = thisText.search('Earnings Tax');
                                     dateIndex = thisText.search('XXX');
                                     hours = thisText.search('RS WORKED');
@@ -53,14 +59,14 @@ async function parsePDF(){
                                 
                                     // output.textContent = allPDFText.join(''); //displays all pdftext on page
                                     console.log(allPDFText)
-                                }
+                                
                     } catch (error) {
                         showAlert(`${error.message}`, "danger")
                         output.textContent = "Error parsing PDF: " + error.message;
                     }
                 };
                 fileReader.readAsArrayBuffer(file);   
-            }
+            //goes with file conditional }
         }                   
     })
 }
