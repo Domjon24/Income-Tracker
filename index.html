@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>CRUD Practice</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="styles.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
 
@@ -14,14 +15,29 @@
 
 
 <body onload="updateMyChart()">
+
     <form id="pdfForm">
         <input type="file" id="pdf-upload" accept=".pdf" multiple>
         <button id="uploadPdfBtn" type="submit">Submit</button>
     </form>
-    <div id="pdf-content">pdf area</div>
-    <div id = "canvas_container">
-        <canvas id = "pdf_renderer"></canvas>
+
+
+
+    <!-- modal popup -->
+    <!-- <button id="myBtn">Open Modal</button> -->
+
+    
+    <div id="myModal" class="modal">
+    
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+      </div>
+    
     </div>
+
+
+
     <div id="pdf-cards"></div>
 
     <div class="container mt-5">

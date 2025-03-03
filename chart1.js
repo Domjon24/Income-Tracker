@@ -21,9 +21,25 @@ const myChart1 = new Chart(ctx, {
     responsive: true,
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        grid: {
+          display: false
+        }}
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+        align: 'end',
+        labels: {
+          boxWidth: 8,
+          boxHeight: 8,
+          usePointStyle: true,
+          font: {
+            size: 12,
+            weight: '500'
+          }
+        }}
       }
-    }
   }
 });
 

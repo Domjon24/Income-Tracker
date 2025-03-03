@@ -3,7 +3,6 @@ const output = document.getElementById('pdf-content');
 const myForm = document.getElementById('pdfForm');
 let fileCount = 0;
 let allPDFText = [];
-let fileName = [];
 
 function convertDateFormat (date){  //converts date to yyyy-mm-dd so form can accept it
     let year = date.slice(6, 11) + "-";
@@ -33,8 +32,10 @@ function resetInputValues(){
 
 function createCard(fileName, hours, date, pay){
     const cardContainer = document.getElementById('pdf-cards'); 
+    // const cardContainer = document.getElementById('myModal');
     const card = document.createElement('div');
 
+    console.log('File name:', fileName);
     card.classList.add('card');
     card.innerHTML = `
         <h5 class="card-title">${fileName}</h5>
@@ -49,7 +50,6 @@ function createCard(fileName, hours, date, pay){
 async function parsePDF(){
     input.addEventListener('change', async () => {
         allPDFText.length = 0;//resets selected file if it's changed before submitting to prevent duplicates
-        fileName.length = 0;
 
         
         const cardContainer = document.getElementById('pdf-cards');
@@ -85,11 +85,10 @@ async function parsePDF(){
                     let hoursWorked = values[2];
                     let date = values[1];
                     let pay = values[0] 
+                    console.log("values" + values)
                     createCard(file.name, hoursWorked, date, pay); // Create a card for each file showing each value
-                    // output.textContent = allPDFText.join(''); //displays pdf values on page
                 } catch (error) {
                     showAlert(`${error.message}`, "danger");
-                    output.textContent = "Error parsing PDF: " + error.message;
                 }
             };
             fileReader.readAsArrayBuffer(file);
@@ -97,13 +96,7 @@ async function parsePDF(){
     });
 }
 
-async function previewFileValues(file){
-    output.textContent = ' ';
-    console.log('File name:', file.name);
-    fileName.push(file.name);
-}
-
-/*Calling main PDF Function*/     parsePDF()
+/*main PDF Function*/     parsePDF()
 
 myForm.addEventListener('submit', e => { //submit button function
     e.preventDefault();
