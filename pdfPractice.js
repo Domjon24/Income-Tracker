@@ -36,9 +36,7 @@ async function parsePDF(){
                         
                         let thisText = "";  //each file gets all their text put into here before going into allPDFText Arr
                             
-                        for (let i = 1; i <= numPages; i++) {
-                            
-                            const page = await pdf.getPage(i);
+                            const page = await pdf.getPage(1);
                             const textContent = await page.getTextContent();
                             thisText += textContent.items.map(item => item.str).join(" ").toString();
 
@@ -56,7 +54,6 @@ async function parsePDF(){
                                     // output.textContent = allPDFText.join(''); //displays all pdftext on page
                                     console.log(allPDFText)
                                 }
-                        }
                     } catch (error) {
                         showAlert(`${error.message}`, "danger")
                         output.textContent = "Error parsing PDF: " + error.message;
