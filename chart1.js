@@ -1,6 +1,7 @@
 const ctx = document.getElementById('chart1');
 
 const myChart1 = new Chart(ctx, {
+
   type: 'line',
   data: {
     labels: [],
@@ -8,10 +9,16 @@ const myChart1 = new Chart(ctx, {
       label: 'Paycheck Total',
       data: [],
       borderWidth: 2,
-    
+      pointRadius: 10,
+      fill: {
+        target: 'origin',
+        above: 'rgba(255, 0, 0, 0.31)',   // Area will be red above the origin
+        below: 'rgba(0, 0, 255, 0.91)'
+      }
     }]
   },
   options: {
+    responsive: true,
     scales: {
       y: {
         beginAtZero: true
@@ -20,22 +27,6 @@ const myChart1 = new Chart(ctx, {
   }
 });
 
-const pushValue = document.getElementById('netPay');
-const push = document.getElementById('Submit');
-const pushLabel = document.getElementById('paycheckDate');
-
-// push.addEventListener('click', pushValueChart)
-
-
-
-function pushValueChart() {
-  myChart1.data.datasets[0].data.push(pushValue.value)  //net total. Y axis values
-  myChart1.data.labels.push(pushLabel.value);  //date. X Axis of chart
-  
-  myChart1.update()
-
-  console.log(myChart1.data.datasets[0] +  myChart1.data.labels);
-}
 
 function updateMyChart() {
   const table = document.getElementById('groceryList');
@@ -57,8 +48,8 @@ function updateMyChart() {
 
     }
   }
-  // console.log(object.data.datasets[0].data + "  " + object.data.labels + "Chart Updated")
-  console.log(`Chart Updated.\nPay: ${object.data.datasets[0].data} \nDate: ${object.data.labels}`)
-  myChart1.update()
-  return object;
+
+    console.log(`Chart Updated.\nPay: ${object.data.datasets[0].data} \nDate: ${object.data.labels}`)
+    myChart1.update()
+    return object;
 }
