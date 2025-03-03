@@ -33,7 +33,7 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
 })
 
 //Clear Fields
-function clearFields() {
+function clearFormFields() {
     document.querySelector("#paycheckDate").value = "";
     document.querySelector("#netPay").value = "";
     document.querySelector("#hoursWorked").value = "";
@@ -57,7 +57,7 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             const list = document.querySelector("#groceryList");
             const row = document.createElement("tr");
             const yAxisDate = myChart1.data.datasets[0].data;
-
+    
             row.innerHTML = `
             <td>${paycheckDate}</td>
             <td>${netPay}</td>
@@ -65,7 +65,7 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             <td>
             <a href="#" class="btn btn-warning btn-sm edit">Edit</a>
             <a href="#" class="btn btn-danger btn-sm delete">Delete</a>`;
-
+    
             list.appendChild(row);
             selectedRow = null;
             console.log(yAxisDate);
@@ -73,7 +73,7 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             
             showAlert("Item Added", "success");   
         }
-        else {
+        else { 
             selectedRow.children[0].textContent = paycheckDate;
             selectedRow.children[1].textContent = netPay;
             selectedRow.children[2].textContent = hoursWorked;
@@ -82,8 +82,9 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             updateMyChart()
             showAlert("Item Edited", "info")
         }
-        clearFields();
-    }
+        clearFormFields();
+    
+}
 })
 
 document.querySelector("#groceryList").addEventListener("click", (e) => { //edit 
@@ -92,9 +93,7 @@ document.querySelector("#groceryList").addEventListener("click", (e) => { //edit
         selectedRow = target.parentElement.parentElement;
 
         document.querySelector("#paycheckDate").value = selectedRow.children[0].textContent;
-
         document.querySelector("#netPay").value = selectedRow.children[1].textContent;
-
         document.querySelector("#hoursWorked").value = selectedRow.children[2].textContent;
 
     }

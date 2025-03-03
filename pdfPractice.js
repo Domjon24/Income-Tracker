@@ -5,7 +5,7 @@ let fileCount = 0;
 let allPDFText = [];
 
 
-function convertDateFormat (date){ //yyyy-mm-dd
+function convertDateFormat (date){ //converts into yyyy-mm-dd so form can accept it
     let year = date.slice(6,11) + "-";
     let month = date.slice(0,2) + "-";
     let day = date.slice(3,5);
@@ -23,16 +23,19 @@ function findValues (payStartingIndex, dateStartingIndex, hoursStartingIndex, pa
         values.push(convertDateFormat(parsedPDFText.slice(b, c).trim()));//date
         values.push(Math.round(parsedPDFText.slice(d, e).trim())); //hours
         allPDFText.push(values)
-            //finds all 3 values, puts in correct format & pushes into addPDFText array
+            //finds all 3 values, formats them & pushes into addPDFText array
 }
-
+function resetInputValues(){
+    document.getElementById('pdf-upload').value = null;
+    allPDFText.length = 0
+}
 
 async function parsePDF(){
     input.addEventListener('change', async () => {
+        allPDFText.length = 0 //resets selected file if it's changed before submitting to prevent duplicates
         const files = input.files;
-
         for (let file of files){ // loops through all input files and parses text
-            // if (file) { //idk why this is in here
+
                 const fileReader = new FileReader(); //new obj constructor
 
                 fileReader.onload = async function() {
@@ -41,7 +44,7 @@ async function parsePDF(){
                         const pdf = await pdfjsLib.getDocument(typedArray).promise;
                         // const numPages = pdf.numPages; //keeping this handy for scaling reasons
                         const page = await pdf.getPage(1);
-                        let thisText = "";  //each file gets all their text put into here before going into allPDFText Arrconst page = await pdf.getPage(1);
+                        let thisText = "";  //each file gets all their text put into here before going into allPDFText Arr
                         const textContent = await page.getTextContent();
                         
                         thisText += textContent.items.map(item => item.str).join(" ").toString();
@@ -57,7 +60,7 @@ async function parsePDF(){
 
                                     findValues(thisIndex, dateIndex, hours, thisText)
                                 
-                                    // output.textContent = allPDFText.join(''); //displays all pdftext on page
+                                    output.textContent = allPDFText.join(''); //displays pdf values on page
                                     console.log(allPDFText)
                                 
                     } catch (error) {
@@ -66,7 +69,6 @@ async function parsePDF(){
                     }
                 };
                 fileReader.readAsArrayBuffer(file);  
-            //goes with file conditional }
         }             
         return;      
     })
@@ -81,11 +83,12 @@ myForm.addEventListener('submit', e => { //submit button function
             return;
         }
         
-        let fileCount = 0;
-        const files = input.files.length;
-        fileCount += files
-            console.log(`submit button pressed. Filename is: ${input.value} current file count is ${fileCount}`)
+        // let fileCount = 0;
+        // const files = input.files.length;
+        // fileCount += files
+        //     console.log(`submit button pressed. Filename is: ${input.value} current file count is ${fileCount}`)
             console.log(`pdf array is ${allPDFText} length is ${allPDFText.length}`)
+
             for (let i = 0; i < allPDFText.length; i++) {
 
                 let paycheckDate = allPDFText[i][1];
@@ -93,10 +96,12 @@ myForm.addEventListener('submit', e => { //submit button function
                 let hoursWorked = allPDFText[i][2];
                 console.log("index is " + i)
                 console.log("file check " + allPDFText[i])
+
                     if (selectedRow == null) {
                         const list = document.querySelector("#groceryList");
                         const row = document.createElement("tr");
-            
+                        const yAxisDate = myChart1.data.datasets[0].data;
+                
                         row.innerHTML = `
                         <td>${paycheckDate}</td>
                         <td>${netPay}</td>
@@ -104,14 +109,17 @@ myForm.addEventListener('submit', e => { //submit button function
                         <td>
                         <a href="#" class="btn btn-warning btn-sm edit">Edit</a>
                         <a href="#" class="btn btn-danger btn-sm delete">Delete</a>`;
-            
+                
                         list.appendChild(row);
                         selectedRow = null;
+                        // console.log(yAxisDate);
                         updateMyChart()
+                        
                         showAlert("Item Added", "success");   
                     }
             
         }
+        resetInputValues()
 })
     
 
