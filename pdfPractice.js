@@ -96,7 +96,7 @@ async function parsePDF(){
     });
 }
 
-/*main PDF Function*/     parsePDF()
+// /*main PDF Function*/     parsePDF()
 
 myForm.addEventListener('submit', e => { //submit button function
     e.preventDefault();
@@ -141,4 +141,4 @@ myForm.addEventListener('submit', e => { //submit button function
 });
 
 
-// parsePDF();
+parsePDF();
