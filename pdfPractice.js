@@ -36,14 +36,16 @@ function createCard(fileName, hours, date, pay){
     const card = document.createElement('div');
 
     console.log('File name:', fileName);
-    card.classList.add('card');
+    card.classList.add("card");
     card.innerHTML = `
-        <h5 class="card-title">${fileName}</h5>
-        <p class="card-text">Hours Worked: ${hours}<br>
+        <p class="card-text">
+            Net Pay: ${pay}<br>
             Date: ${date}<br>
-            Total Pay: ${pay}</p>
+            Hours Worked: ${hours}</p>
+            <div class="card-footer">
+            <small class="text-muted">${fileName}</small>
 
-    `;
+        `;
     cardContainer.appendChild(card);
 }
 
@@ -51,7 +53,7 @@ async function parsePDF(){
     input.addEventListener('change', async () => {
         allPDFText.length = 0;//resets selected file if it's changed before submitting to prevent duplicates
 
-        
+
         const cardContainer = document.getElementById('pdf-cards');
         cardContainer.innerHTML = '';  // Clears the old cards
 
@@ -96,7 +98,7 @@ async function parsePDF(){
     });
 }
 
-// /*main PDF Function*/     parsePDF()
+/*main PDF Function*/     parsePDF()
 
 myForm.addEventListener('submit', e => { //submit button function
     e.preventDefault();
@@ -104,7 +106,7 @@ myForm.addEventListener('submit', e => { //submit button function
             showAlert(`Please select a valid file`, "danger")
             return;
         }
-        
+
         // let fileCount = 0;
         // const files = input.files.length;
         // fileCount += files
@@ -116,8 +118,7 @@ myForm.addEventListener('submit', e => { //submit button function
         let paycheckDate = allPDFText[i][1];
         let netPay = allPDFText[i][0];
         let hoursWorked = allPDFText[i][2];
-        console.log("index is " + i)
-        console.log("file check " + allPDFText[i])
+        console.log("loop index is " + i)
 
         if (selectedRow == null) {
             const list = document.querySelector("#groceryList");
@@ -141,4 +142,4 @@ myForm.addEventListener('submit', e => { //submit button function
 });
 
 
-parsePDF();
+// parsePDF();

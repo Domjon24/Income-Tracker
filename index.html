@@ -5,118 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>CRUD Practice</title>
+    <title>Income Tracker</title>
     <link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+  <!-- <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script> -->
 
 </head>
-
-<div class=breadcrumb aem-GridColumn aem-GridColumn--default--12>
-    <div class="container">
-        <nav id="breadcrumb-cffd2bfc15" class="cmp-breadcrumb" aria-label="Breadcrumb">
-            <ol class="cmp-breadcrumb__list" itemscope="" itemtype="http://schema.org/BreadcrumbList" data-module="breadcrumbs" data-dom-binding="true">
-                <li class="cmp-breadcrumb__item" data-cmp-data-layer="{&quot;breadcrumb-cffd2bfc15-item-6abedad877&quot;:{&quot;@type&quot;:&quot;ups-global/components/ups-commons/organism/breadcrumb/item&quot;,&quot;repo:modifyDate&quot;:&quot;2023-03-18T06:08:18Z&quot;,&quot;dc:title&quot;:&quot;Tools &amp; Resources&quot;,&quot;xdm:linkURL&quot;:&quot;/us/en/tools-and-resources.html&quot;}}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                    <a href="#" class="cmp-breadcrumb__item-link" itemprop="item" data-cmp-clickable="">
-                        <span itemprop="name">Tools & Resources</span>
-                    </a>
-                    <meta itemprop="position" content="2">
+<header class="headerNav aem-GridColumn aem-GridColumn--default--12">
+             <!-- Hamburger menu -->
+            <div class="hamburger-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class=".navbar-expand-lg .navbar-nav util-nav">
+                <ul class="menuBar">
+                    <li id="menuItem"><a href="#">About UPS</a></li>
+                    <li id="menuItem"><a href="#">Applications</a></li>
+                    <li id="menuItem"><a href="#">Help</a></li>
+                    <li id="menuItem"><a href="#">United States - English</a></li>
+                    
+                </ul>
+            </div>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="https://ups.scene7.com/is/content/upsprod/Logo" height="55" width="64"></a>
                 </li>
-                <li class="cmp-breadcrumb__item" data-cmp-data-layer="{&quot;breadcrumb-cffd2bfc15-item-6abedad877&quot;:{&quot;@type&quot;:&quot;ups-global/components/ups-commons/organism/breadcrumb/item&quot;,&quot;repo:modifyDate&quot;:&quot;2023-03-18T06:08:18Z&quot;,&quot;dc:title&quot;:&quot;Tools &amp; Resources&quot;,&quot;xdm:linkURL&quot;:&quot;/us/en/tools-and-resources.html&quot;}}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                    <a href="#" class="cmp-breadcrumb__item-link" itemprop="item" data-cmp-clickable="">
-                        <span itemprop="name">Employee Resources</span>
-                    </a>
-                    <meta itemprop="position" content="2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tools & Resources</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">myHR</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Our Company</a>
+                </li>
+            </ul>
+        </div> 
+    </div>
+    </header>
+
+
+    <div class="container-fluid breadcrumb  aem-GridColumn--default--12"> <!-- Breadcrumb-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Tools & Resources</a></li>
+                <li class="breadcrumb-item"><a href="#">Pay & Benefits</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Income Tracker</li>
             </ol>
         </nav>
     </div>
-</div>
+
+
 <body onload="updateMyChart()">
+    <div class="container-fluid">
+        <!-- <div class="main row justify-content-center"> 
+            <form id="pdfForm">
+            <label for="pdf-upload"> 
+                <div class="button-container">
+                    <a class='primary-btn'>Select PDF &nbsp<i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </label>
+                <input type="file" style="display:none;" id="pdf-upload" accept=".pdf" multiple> 
+                <button id="uploadPdfBtn" type="submit">Accept Files&nbsp<i class="fa-solid fa-chevron-right"></i></button>
+            </form>
+        </div> -->
 
-    <form id="pdfForm">
-        <input type="file" id="pdf-upload" accept=".pdf" multiple>
-        <button id="uploadPdfBtn" type="submit">Submit</button>
-    </form>
+        <div class="row justify-content-center"><!-- Card Deck-->     
+            <div class="card-deck justify-content-center" id="pdf-cards"></div>
+        </div>
 
+        <div class="row"> <!-- Heading + form + buttons-->
+            <div class="container mt-5 alert-area">
+                <div class="text-center"><!-- Main heading-->
+                    <h1 class="mb-5">My Income<hr></h1>
+                    <!-- <p id="subHeading">03-19-2025</p> -->
+                    <p>Income Tracker is a tool used to help monitor and record income streams so you can understand your financial habits. <br>Enter your UPS paystub data manually, or upload automaticlly with the <strong>Select PDF</strong> button</p>
+                </div>
 
+                <div class="main row justify-content-center"> <!-- File UPload Buttons-->
+                    <form id="pdfForm">
+                    <label for="pdf-upload"> 
+                        <div class="button-container">
+                            <a class='primary-btn'>Select PDF &nbsp<i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </label>
+                        <input type="file" style="display:none;" id="pdf-upload" accept=".pdf" multiple> 
+                        <button id="uploadPdfBtn" type="submit">Accept Files&nbsp<i class="fa-solid fa-chevron-right"></i></button>
+                    </form>
+                </div>
 
-    <!-- modal popup -->
-    <!-- <button id="myBtn">Open Modal</button> -->
+                <div class="row justify-content-center"> <!-- Manual Entry Form-->
+                    <form action="" id="grocery-form" class="row justify-content-center mb-4" autocomplete="off">
 
-    
-    <div id="myModal" class="modal">
-    
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
-      </div>
-    
+                        <div class="col-10 mb-3">
+                            <label for="paycheckDate"><strong>Paycheck Date</strong></label>
+                            <input class="form-control" id="paycheckDate" type="date">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="netPay"><strong>Net Pay</strong></label>
+                            <input class="form-control" id="netPay" type="number" placeholder="Enter Net Pay">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="hoursWorked"><strong>Hours Worked</strong></label>
+                            <input class="form-control" id="hoursWorked" type="number">
+                        </div>
+                        <div class="col-10">
+                            <input class="btn btn-success add-btn" type="submit" value="Submit">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center"> <!-- Table-->
+            <div class="col-8 mt-5">
+                <table class="table sortable table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Net Pay</th>
+                            <th>Hours Worked</th>
+                        </tr>
+                    </thead>
+                    <tbody id="groceryList">
+                        <tr> <!-- Empty cell for Edit/Delete buttons-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row justify-content-center" id="chartRow"> <!-- Chart-->
+            <div class="col-8 chartContainer" style="height:70vh; width:80vh">
+                
+                
+                <canvas id="chart1"></canvas>
+         
+            </div>
+        </div>
+
     </div>
 
+    <footer>
 
-
-    <div id="pdf-cards"></div>
-
-    <div class="container mt-5">
-        <div class="text-center">
-            <h1 class="display-5 mb-5"><strong>My Income</strong></h1>
-            <p>Enter UPS paychecks manually, or upload paystub PDF's</p>
-        </div>
-    <div class="main row justify-content-center">
-        <form action="" id="grocery-form" class="row justify-content-center mb-4" autocomplete="off">
-
-            <div class="col-10 mb-3">
-                <label for="paycheckDate">Paycheck Date</label>
-                <input class="form-control" id="paycheckDate" type="date">
-            </div>
-
-            <div class="col-10 mb-3">
-                <label for="netPay">Net Pay</label>
-                <input class="form-control" id="netPay" type="number" placeholder="Enter Net Pay">
-            </div>
-
-            <div class="col-10 mb-3">
-                <label for="hoursWorked">Hours Worked</label>
-                <input class="form-control" id="hoursWorked" type="number">
-            </div>
-            <div class="col-10">
-                <input class="btn btn-success add-btn"  type="submit" value="Submit">
-            </div>
-        </form>
-
-        <div class="col-12 mt-5">
-            <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Net Pay</th>
-                    <th>Hours Worked</th>
-                </tr>
-            </thead>
-           <tbody id="groceryList">
-            <tr>
-            </tr>
-           </tbody>
-           </table>
-        </div>
-    </div>
-        
-
-        </div>
-</div>
-        
+        <!-- <hr class="footerHR"> -->
+        <p id="tac">Terms & Conditions | Privacy Notice</p>
+       <hr class="footerHR">
+        <p id="copyright">Copyright ©1994-2025 United Parcel Service of America, Inc. All rights reserved.
+            <p id="footerText">Market Data copyright © 2021 QuoteMedia. Data delayed 15 minutes unless otherwise indicated (view delay times for all exchanges). RT=Real-Time, EOD=End of Day, PD=Previous Day. Market Data powered by QuoteMedia. Terms of Use.</p>
+            </p>
+            
+    </footer>
 </body>
 
-<div>
-    <canvas id="chart1"></canvas>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-
-<script src="mainBS.js"> </script>
-<script src="chart1.js"> </script>
-<script src="pdfPractice.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="mainBS.js"> </script>
+    <script src="chart1.js"> </script>
+    <script src="pdfPractice.js"> </script>
 
 </html>

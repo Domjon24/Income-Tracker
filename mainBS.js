@@ -3,22 +3,21 @@ var selectedRow = null;
 function showAlert(message, className) { // Alert #1
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
-
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelector(".container");
-    const main = document.querySelector(".main");
-    container.insertBefore(div, main);
+
+    const alertArea = document.querySelector(".alert-area");
+    alertArea.insertBefore(div, alertArea.firstChild);
 
     setTimeout(() => document.querySelector(".alert").remove(), 4500);
 }
-function showAlert2(message, className) { // Alert #2
+function showAlert2(message, className) { // Alert #2 (pdf errors)
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
-
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelector(".container");
-    const main = document.querySelector(".main");
-    container.insertBefore(div, main);
+
+    const alertArea = document.querySelector(".alert-area");
+    alertArea.insertBefore(div, alertArea.firstChild);
+    
     setTimeout(() => document.querySelector(".alert").remove(), 6500);
 }
 
@@ -28,7 +27,7 @@ document.querySelector("#groceryList").addEventListener("click", (e) => {
     if (target.classList.contains("delete")){
         target.parentElement.parentElement.remove();
         updateMyChart();
-        showAlert("Student Data Deleted", "danger")
+        showAlert("Paycheck Data Deleted", "danger")
     }
 })
 
@@ -38,8 +37,6 @@ function clearFormFields() {
     document.querySelector("#netPay").value = "";
     document.querySelector("#hoursWorked").value = "";
 }
-
-
 //add data from form
 document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
     e.preventDefault();
@@ -57,7 +54,7 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             const list = document.querySelector("#groceryList");
             const row = document.createElement("tr");
             const yAxisDate = myChart1.data.datasets[0].data;
-    
+
             row.innerHTML = `
             <td>${paycheckDate}</td>
             <td>${netPay}</td>
@@ -65,12 +62,12 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             <td>
             <a href="#" class="btn btn-warning btn-sm edit">Edit</a>
             <a href="#" class="btn btn-danger btn-sm delete">Delete</a>`;
-    
+
             list.appendChild(row);
             selectedRow = null;
             console.log(yAxisDate);
             updateMyChart()
-            
+
             showAlert("Item Added", "success");   
         }
         else { 
@@ -78,12 +75,12 @@ document.querySelector("#grocery-form").addEventListener("submit", (e) =>{
             selectedRow.children[1].textContent = netPay;
             selectedRow.children[2].textContent = hoursWorked;
             selectedRow = null;
-            
+
             updateMyChart()
             showAlert("Item Edited", "info")
         }
         clearFormFields();
-    
+
 }
 })
 
@@ -99,28 +96,3 @@ document.querySelector("#groceryList").addEventListener("click", (e) => { //edit
     }
 })
 
-// var modal = document.getElementById("myModal");
-
-// // Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
-
-// // Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// // // When the user clicks on the button, open the modal
-// btn.onclick = function() {
-//     input.addEventListener('change', async () => {
-//   modal.style.display = "block";
-//     })
-// }
-// // When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// }
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
