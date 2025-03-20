@@ -8,16 +8,17 @@ const myChart1 = new Chart(ctx, {
     datasets: [{
       label: 'Paycheck Total',
       data: [],
-      borderWidth: 2,
+      borderWidth: 3,
       pointRadius: 10,
       fill: {
         target: 'origin',
-        above: 'rgba(255, 0, 0, 0.31)',   // Area will be red above the origin
-        below: 'rgba(0, 0, 255, 0.91)'
+        above: 'rgba(255, 196, 0, 1)',   // Area will be red above the origin
+        below: 'rgba(6, 98, 187, 1)'
       }
     }]
   },
   options: {
+    maintainAspectRatio: false,
     responsive: true,
     scales: {
       y: {
@@ -54,7 +55,7 @@ function updateMyChart() {
   for (let i = 0; i < thisRow.length; i++) {
 
     const cells = thisRow[i].getElementsByTagName('td');
-    
+
     if (cells.length > 0) {
       let thisDate = cells[0].textContent; 
       let thisNetPay = cells[1].textContent; 
