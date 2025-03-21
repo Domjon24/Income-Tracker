@@ -9,26 +9,24 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
-  <!-- <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script> -->
 
 </head>
-<header class="headerNav aem-GridColumn aem-GridColumn--default--12">
-             <!-- Hamburger menu -->
-            <div class="hamburger-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <div class=".navbar-expand-lg .navbar-nav util-nav">
-                <ul class="menuBar">
-                    <li id="menuItem"><a href="#">About UPS</a></li>
-                    <li id="menuItem"><a href="#">Applications</a></li>
-                    <li id="menuItem"><a href="#">Help</a></li>
-                    <li id="menuItem"><a href="#">United States - English</a></li>
-                    
-                </ul>
-            </div>
-            <ul>
+<header class="headerNav aem-GridColumn aem-GridColumn--default--12"> 
+        <div class="hamburger-menu"><!-- Hamburger menu -->
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class=".navbar-expand-lg .navbar-nav util-nav"><!-- Top Right navbar -->
+            <ul class="menuBar">
+                <li id="menuItem"><a href="#">About UPS</a></li>
+                <li id="menuItem"><a href="#">Applications</a></li>
+                <li id="menuItem"><a href="#">Help</a></li>
+                <li id="menuItem"><a href="#">United States - English</a></li>
+                
+            </ul>
+        </div>
+            <ul> <!-- main navbar -->
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <img src="https://ups.scene7.com/is/content/upsprod/Logo" height="55" width="64"></a>
@@ -43,9 +41,7 @@
                     <a class="nav-link" href="#">Our Company</a>
                 </li>
             </ul>
-        </div> 
-    </div>
-    </header>
+</header>
 
 
     <div class="container-fluid breadcrumb  aem-GridColumn--default--12"> <!-- Breadcrumb-->
@@ -61,18 +57,6 @@
 
 <body onload="updateMyChart()">
     <div class="container-fluid">
-        <!-- <div class="main row justify-content-center"> 
-            <form id="pdfForm">
-            <label for="pdf-upload"> 
-                <div class="button-container">
-                    <a class='primary-btn'>Select PDF &nbsp<i class="fa-solid fa-chevron-right"></i>
-                    </a>
-                </div>
-            </label>
-                <input type="file" style="display:none;" id="pdf-upload" accept=".pdf" multiple> 
-                <button id="uploadPdfBtn" type="submit">Accept Files&nbsp<i class="fa-solid fa-chevron-right"></i></button>
-            </form>
-        </div> -->
 
         <div class="row justify-content-center"><!-- Card Deck-->     
             <div class="card-deck justify-content-center" id="pdf-cards"></div>
@@ -155,9 +139,14 @@
     </div>
 
     <footer>
-
-        <!-- <hr class="footerHR"> -->
-        <p id="tac">Terms & Conditions | Privacy Notice</p>
+        <p id="tac">Terms & Conditions | Privacy Notice | <strong>Click the numbers below to download demo paystubs</strong><br>
+            <a target="_blank" href="Demo Paystubs/ANDREA COHEN PAYSTUB.pdf">1</a>
+            <a target="_blank" href="Demo Paystubs/BRENDA CASTLE PAYSTUB.pdf">2</a>
+            <a target="_blank" href="Demo Paystubs/FRIDA ROMERO PAYSTUB.pdf">3</a>
+            <a target="_blank" href="Demo Paystubs/HUNTER CLARINGTON PAYSTUB.pdf">4</a>
+            <a target="_blank" href="Demo Paystubs/JANE ADAMS PAYSTUB.pdf">5</a>
+            <a target="_blank" href="Demo Paystubs/LEROY BERRY PAYSTUB.pdf">6</a>
+            <a target="_blank" href="Demo Paystubs/MATTHEW RUTHERFORD PAYSTUB.pdf">7</a></p>
        <hr class="footerHR">
         <p id="copyright">Copyright ©1994-2025 United Parcel Service of America, Inc. All rights reserved.
             <p id="footerText">Market Data copyright © 2021 QuoteMedia. Data delayed 15 minutes unless otherwise indicated (view delay times for all exchanges). RT=Real-Time, EOD=End of Day, PD=Previous Day. Market Data powered by QuoteMedia. Terms of Use.</p>
